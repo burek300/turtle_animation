@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turtle with JavaScript</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            font-weight: 600;
+        }
+        body {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #first_row {
+            width: 100%;
+            height: 10%;
+            display: flex;
+            justify-content: center;
+            align-items:flex-end;
+            background-color: rgb(255, 255, 255);
+        }
+        h1 {
+            color: black;
+            margin: 0;
+        }
+        #second_row {
+            width: 100%;
+            height: 70%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #form_div {
+            width: 30%;
+            height: 50vh;
+            background-color: rgba(255, 0, 0, 0);
+            margin-right: 100px;
+        }
+        form {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(0, 0, 0);
+            color: white;
+            -webkit-box-shadow: 0px 0px 35px -12px rgb(0, 0, 0);
+            -moz-box-shadow: 0px 0px 35px -12px rgb(0, 0, 0);
+            box-shadow: 0px 0px 35px -12px rgb(0, 0, 0);
+        }
+        #inputs_div {
+            width: 100%;
+            height: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .form_in_part {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        input {
+            width: 200px;
+            height: 50px;
+            max-height: 50px;
+            border-radius: 10px;
+            border: 2px solid white;
+            color: black;
+            font-size: 20px;
+            font-weight: 500;
+            padding-left: 10px;
+            outline: none;
+            margin-bottom: 30px;
+            -webkit-box-shadow: 0px 0px 35px -12px rgb(255, 255, 255);
+            -moz-box-shadow: 0px 0px 35px -12px rgb(255, 255, 255);
+            box-shadow: 0px 0px 35px -12px rgb(255, 255, 255);
+        }
+        input::placeholder {
+            color: rgb(182, 182, 182);
+            font-size: 20px;
+        }
+        .color_input {
+            width: 214px;
+            height: 60px;
+            padding: 0;
+        }
+        #submit {
+            font-weight: 600;
+            background-color: #867200;
+            color: white;
+            -webkit-box-shadow: 0px 0px 35px -12px rgb(255, 217, 0);
+            -moz-box-shadow: 0px 0px 35px -12px rgb(255, 217, 0);
+            box-shadow: 0px 0px 35px -12px rgb(255, 217, 0);
+        }
+        #scrollContainer {
+            width: 50%;
+            height: 50vh;
+            overflow: hidden;
+            border-radius: 20px;
+            -webkit-box-shadow: 0px 0px 35px -12px rgb(0, 0, 0);
+            -moz-box-shadow: 0px 0px 35px -12px rgb(0, 0, 0);
+            box-shadow: 0px 0px 35px -12px rgb(0, 0, 0);
+            transition: 0.3s;
+        }
+        canvas {
+            width: 15000px;
+            height: 15000px;
+            background-color: rgb(255, 255, 255);
+        }
+        #scrollContainer:hover {
+            border-radius: 0;
+            transition: 0.3s;
+        }
+        #third_row {
+            width: 100%;
+            height: 20%;
+            background-color: rgb(0, 0, 0);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: white;
+            font-weight: 300;
+        }
+        #third_row > p {
+            font-size: 30px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="first_row">
+        <h1>TURTLE ANIMATION</h1>
+    </div>
+    <div id="second_row">
+        <div id="form_div">
+            <form id="form_id">
+                <div id="inputs_div">
+                    <div class="form_in_part">
+                        <label>Background color:</label>
+                        <input type="color" name="bg_color" class="color_input" required value="#ffffff" id="bg_color_input">
+                        <label>Pen color:</label>
+                        <input type="color" name="pen_color" class="color_input" required value="#000000" id="pen_color_input">
+                        <label>Radius:</label>
+                        <input type="number" min="1" max="100" value="30" required id="radius_input">
+                    </div>
+                    <div class="form_in_part">
+                        <label>Resolution</label>
+                        <input type="number" min="1" max="1000" placeholder="1-1000" name="resolution" required value="10" id="resolution_input">
+                        <label>Pen width:</label>
+                        <input type="number" max="5" min="1" placeholder="1-5" name="pen_width" required value="5" id="pen_width_input">
+                        <label>Follow turtle (seconds):</label>
+                        <input type="" min="0" max="1000" value="1" required id="follow_turtle_input" placeholder="0-1000">
+                    </div>
+                </div>
+                <div id="submit_div">
+                    <input type="submit" value="GO" id="submit">
+                </div>
+            </form>
+        </div>
+        <div id="scrollContainer">
+            <canvas id="turtleCanvas" width="15000" height="15000"></canvas>
+        </div>
+    </div>
+    <div id="third_row">
+        <p>IMPORTANT!</p><br>
+        <ul>
+            <li>Change the parameters for different results</li>
+            <li>Click the canvas for fullscreen</li>
+            <li>If you go on other tabs or apps the animation will break</li>
+        </ul>
+    </div>
+    <script>
+        let stop = 0
+        let centering = false
+        const scrollContainer = document.getElementById("scrollContainer")
+        const canvas = document.getElementById('turtleCanvas');
+        const ctx = canvas.getContext('2d');
+        const smeri = ["desno", "gor", "levo", "dol"]
+        let smer = 0
+        let coords = [0, 0]
+        let follow_turtle = 10
+
+        // Variables
+        const scrollSpeed = 1;
+        let x = 7500, y = 7500, angle = 0; // Starting point
+        let steps = 10000000;
+        let time_sleep = 0.01;
+
+        // Event listener for form submission
+        document.getElementById("form_div").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Get new values from form inputs
+            var bg_color = document.getElementById("bg_color_input").value;
+            var pencolor = document.getElementById("pen_color_input").value;
+            var radius = document.getElementById("radius_input").value;
+            var resolution = document.getElementById("resolution_input").value;
+            var penWidth = document.getElementById("pen_width_input").value;
+            follow_turtle = document.getElementById("follow_turtle_input").value;
+            document.getElementById("turtleCanvas").style.backgroundColor = bg_color;
+
+            let vars_list = [bg_color, pencolor, radius, resolution, penWidth, follow_turtle]
+            stop = 0
+            
+            x = 7500;
+            y = 7500;
+            angle = 0;
+            smoothCenterTurtle()
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            setTimeout(() => {
+                stop = 1;
+                main(vars_list);
+                if (!centering) {
+                    centerTurtle()
+                }
+            }, 1000);
+        });
+
+        // Move forward
+        function t_forward(vars_list, dist) {
+            const radians = angle * Math.PI / 180 * -1;
+            const newX = x + dist * Math.cos(radians);
+            const newY = y + dist * Math.sin(radians);
+            pencolor = vars_list[1]
+            penWidth = vars_list[4]
+
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(newX, newY);
+            ctx.strokeStyle = pencolor;
+            ctx.lineWidth = penWidth;
+            ctx.stroke();
+            x = newX;
+            y = newY;
+        }
+
+        function t_right(deg) {
+            angle -= deg;
+        }
+
+        function t_left(deg) {
+            angle += deg;
+        }
+
+        function sleep(s) {
+            return new Promise(resolve => setTimeout(resolve, s * 1000));
+        }
+
+        async function drawline(vars_list, direction) {
+            resolution = vars_list[3]
+            radius = vars_list[2]
+            let t_angle = 90 / resolution * Math.PI / 180;
+            let line = Math.sqrt(2 * (radius ** 2) - 2 * radius ** 2 * Math.cos(t_angle));
+
+            if (direction === -1 || direction === 1) {
+                let angle_degrees = t_angle * (180 / Math.PI);
+                for (let i = 0; i < resolution; i++) {
+                    if (stop===1) {
+                        t_forward(vars_list, line);
+                        t_left(angle_degrees * direction);
+                        await sleep(time_sleep);
+                    }
+                    else {
+                        break
+                    }
+                }
+            } else {
+                for (let randvar1 = 0; randvar1 < resolution; randvar1++) {
+                    if (stop===1) {
+                        t_forward(vars_list, 2 * radius / resolution);
+                        await sleep(time_sleep);
+                    }
+                    else {
+                        break
+                    }
+                }
+            }
+        }
+
+        function draw(vars_list) {
+            radius = vars_list[2]
+            resolution = vars_list[3]
+
+            let direction = Math.floor(Math.random() * 3) - 1;
+            radius = Math.floor(Math.random() * (radius)) + radius;
+            drawline(vars_list, direction);
+        }
+
+        async function main(vars_list) {
+            resolution = vars_list[3]
+            for (let k = 0; k < steps; k++) {
+                if (stop === 1) {
+                    draw(vars_list);
+                    await sleep(time_sleep * resolution);
+                    console.log(stop)
+                }
+                else {
+                    console.log(stop)
+                    break
+                }
+            }
+        }
+
+        async function centerTurtle() {
+            console.log("Center turtle")
+            centering = true
+            while (stop === 1) {
+                smoothCenterTurtle()
+                await sleep(follow_turtle)
+                console.log(follow_turtle)
+            }
+            centering = false
+
+        }
+
+        function smoothCenterTurtle() {
+            scrollContainer.scrollLeft = x - scrollContainer.clientWidth / 2;
+            scrollContainer.scrollTop = y - scrollContainer.clientHeight / 2;
+        }
+
+        function reset_turtle () {
+            x = 7500;
+            y = 7500;
+            angle = 0;
+        }
+    </script>
+
+    <script>
+        function getFullscreenElement() {
+            return document.fullscreenElement
+                || document.webkitFullscreenElement
+                || document.mozFullscreenElement
+                || document.msFullscreenElement
+
+        }
+
+        function toggleFullscreen() {
+            if (getFullscreenElement()) {
+                document.exitFullscreen()
+            }
+            else {
+                document.getElementById("scrollContainer").requestFullscreen().catch(console.log)
+            }
+        }
+
+        document.getElementById("scrollContainer").addEventListener("click", () => {
+            toggleFullscreen()
+        })
+    </script>
+</body>
+</html>
